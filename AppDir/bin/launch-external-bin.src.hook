@@ -44,6 +44,6 @@ if [ "$current_interpreter" != "$DLINKER" ]; then
 		-exec patchelf --set-interpreter "$DLINKER" {} \; 2>/dev/null || :
 fi
 
-export LD_LIBRARY_PATH="$SHARUN_EXTRA_LIBRARY_PATH:$APPDIR/shared/lib:$APPDIR/shared/lib/pulseaudio:$LD_LIBRARY_PATH"
 cd "${GAMEPATH%/*}"
+export LD_LIBRARY_PATH="$PWD:$SHARUN_EXTRA_LIBRARY_PATH:$APPDIR/shared/lib:$APPDIR/shared/lib/pulseaudio:$LD_LIBRARY_PATH"
 exec "$SHARUN" env "$TO_LAUNCH" "$@"
