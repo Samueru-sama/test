@@ -1,0 +1,40 @@
+#!/bin/sh
+
+set -e
+
+SHARUN="$APPDIR"/sharun
+LIBRARY_PATH="$SHARUN_EXTRA_LIBRARY_PATH:$APPDIR/shared/lib:$LD_LIBRARY_PATH"
+
+if [ "$APPIMAGE_ARCH" = 'x86_64' ]; then
+	DLINKER="$APPDIR"/shared/lib/ld-linux-x86-64.so.2
+elif [ "$APPIMAGE_ARCH" = 'aarch64' ]; then
+	DLINKER="$APPDIR"/shared/lib/ld-linux-aarch64.so.1
+else
+	>&2 echo "Something broke terribly here"
+	exit 1
+fi
+
+_help() {
+	>&2 echo ""
+	>&2 echo "  USAGE: ${APPIMAGE##*/} /path/to/application"
+	>&2 echo ""
+	exit 1
+}
+
+_exec() {
+	case "$(head -c 10 "$1")" in
+		*ELF*)
+			exec "$SHARUN" env "$DLINKER" \
+			  --library-path "$LIBRARY_PATH" --argv0 "$1" "$@"
+			;;
+		*)
+			export LD_LIBRARY_PATH="$LIBRARY_PATH"
+			exec "$SHARUN" env "$@"
+			;;
+	esac
+}
+
+case "$1" in
+	''|--help|-h|-H) _help;;
+	*)               _exec "$@";;
+esac
