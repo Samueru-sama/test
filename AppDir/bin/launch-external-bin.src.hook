@@ -42,6 +42,8 @@ current_interpreter=$(patchelf --print-rpath "$TO_LAUNCH")
 if [ "$current_interpreter" != "$DLINKER" ]; then
 	find "${TO_LAUNCH%/*}" -type f -maxdepth 1 \
 		-exec patchelf --set-interpreter "$DLINKER" {} \; 2>/dev/null || :
+	find "${TO_LAUNCH%/*}" -type f -maxdepth 1 \
+		-exec patchelf --set-rpath '$ORIGIN' {} \; 2>/dev/null || :
 fi
 
 cd "${GAMEPATH%/*}"
