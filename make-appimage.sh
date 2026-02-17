@@ -15,6 +15,7 @@ export ANYLINUX_LIB=0
 export APPNAME=TEST
 export DEPLOY_SDL=1
 export DEPLOY_OPENGL=1
+export DEPLOY_VULKAN=1
 
 # Deploy dependencies
 quick-sharun /usr/bin/env
