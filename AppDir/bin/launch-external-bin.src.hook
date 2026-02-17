@@ -21,7 +21,7 @@ _get_game_path() {
 
 	if [ -f "$gamelocation" ] && [ -f "${gamelocation%/*}"/starbound_server ]; then
 		TO_LAUNCH=$gamelocation
-		echo "${gamelocation%/*}" > "$GAMEPATH"
+		echo "$gamelocation" > "$GAMEPATH"
 		return 0
 	fi
 	zenity --error 'That is not a valid location!'
