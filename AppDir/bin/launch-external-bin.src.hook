@@ -46,4 +46,4 @@ fi
 
 export LD_LIBRARY_PATH="$SHARUN_EXTRA_LIBRARY_PATH:$APPDIR/shared/lib:$APPDIR/shared/lib/pulseaudio:$LD_LIBRARY_PATH"
 cd "${GAMEPATH%/*}"
-exec "$SHARUN" env "$LAUNCH" "$@"
+exec "$SHARUN" env "$TO_LAUNCH" "$@"
