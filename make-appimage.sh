@@ -18,7 +18,7 @@ export DEPLOY_OPENGL=1
 export DEPLOY_VULKAN=1
 
 # Deploy dependencies
-quick-sharun /usr/bin/env
+quick-sharun /usr/bin/env /usr/bin/patchelf /usr/bin/zenity
 
 # Additional changes can be done in between here
 
